@@ -409,6 +409,14 @@ class BaseSslClient(ABC):
         """
         return [x509.as_pem() for x509 in self._ssl.get_peer_cert_chain()]
 
+    def get_ems_support(self) -> Optional[bool]:
+        support = self._ssl.get_extms_support()
+        if support == 1:
+            return True
+        if support == 0:
+            return False
+        return None
+
 
 class OpenSslEarlyDataStatusEnum(IntEnum):
     """Early data status constants."""
